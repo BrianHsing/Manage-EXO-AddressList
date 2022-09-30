@@ -30,20 +30,26 @@
 情境 1：信箱使用者未存在：先建立通訊清單，在建立信箱使用者。<br>
 情境 2：信箱使用者已存在：建立通訊清單，更新使用者資料。例：通訊清單已部門篩選人員，使用者部門已有相對應值，必須先將其更改，再改回原本相對應值，聯絡人才會在相對應分類出現。如果環境中有使用身分混合識別，需要透過執行 AAD Sync 手動同步指令，更改過的通訊清單才會正常篩選。<br>
 
-- 新增 Address List
+- 新增 Address List<br>
+  
   假如我們今天要建立的通訊清單階層是：<br>
   ````
     Contoso
-     |-部門1
+     |-部門 1
         |-業務單位
         |-技術單位
-     |-部門2
+     |-部門 2
   ````
-
-- 查詢 Address List
-- 更改 Address List名稱
-- 更改 Address List過濾屬性
-- 刪除 Address List
+    - 首先我們先建立第一個階層部門 1 和部門 2，執行以下指令<br>
+        ````Powershell
+        New-AddressList -Name Contoso -RecipientFilter {( Department -eq '部門1') -and (RecipientType -eq 'UserMailbox')}
+        New-AddressList -Name Contoso -RecipientFilter {( Department -eq '部門2') -and (RecipientType -eq 'UserMailbox')}
+        ````
+    - 
+- 查詢 Address List<br>
+- 更改 Address List名稱<br>
+- 更改 Address List過濾屬性<br>
+- 刪除 Address List<br>
 
 ## 參考來源
 
