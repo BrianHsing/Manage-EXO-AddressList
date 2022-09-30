@@ -8,9 +8,9 @@
 
 - 在開始執行指令連線之前，我們先指派必要的權限，開啟Exchange Online系統管理中心，至權限分類中，選擇Oranization Management，並在角色欄位中新增Address Lists。然而 Exchange Admin Center 面臨到介面變更的狀況，所以我也會提供兩種介面的截圖給大家參考。<br>
   - 新介面<br>
-    ![Github](images/permissioin-new.png)<br>
+    ![Github](https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/permissioin-new.png)<br>
   - 傳統介面<br>
-    ![Github](images/permissioin-old.png)<br>
+    ![Github](https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/permissioin-old.png)<br>
 - 前置作業檢查：<br>
   - 如果您使用 Windows Client: Windows 7 Service Pack 1 (SP1)、Windows 8.1、Windows 10/11<br>
   - 如果您使用 Windows Server: Windows Server 2008 R2 SP1、Windows Server 2012/R2 或更新版本<br>
@@ -21,7 +21,7 @@
   - 查看目前安裝的模組版本及其安裝位置 `Get-InstalledModule ExchangeOnlineManagement | Format-List Name,Version,InstalledLocation`<br>
   - 更新模組 `Update-Module -Name ExchangeOnlineManagement`<br>
 - 輸入 `Connect-ExchangeOnline -UserPrincipalName brian@M365B259147.onmicrosoft.com` 連線至 EXO，請將 UserPrincipalName 後面的帳號，輸入具有權限的帳號，通常來說可能是全域管理員，執行後會跳出帳號密碼登入的視窗，登入即可。<br>
- ![Github](/images/login1.png)<br>
+ ![Github](/https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/login1.png)<br>
 - 執行`Get-EXOMailbox`確認是否已成功連線。<br>
 
 ## 通訊清單管理
@@ -61,33 +61,33 @@
         ````
     - 完成後的樹狀結構結果呈現<br>
       - Powershell 結果視窗
-        ![Github](/images/new-addresslist.png)<br>
+        ![Github](/https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/new-addresslist.png)<br>
       - Outlook Cient User View<br>
-        ![Github](images/addresslist-outlook-view.png)<br>
+        ![Github](https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/addresslist-outlook-view.png)<br>
     - 測試更改使用者部門，觀察篩選結果<br>
       - 假設會篩選屬於部門 1 的業務人員，將 Alex、Alan 的部門輸入 Seg1-sales。<br>
-        ![Github](/images/address-list-show.png)<br>
+        ![Github](/https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/address-list-show.png)<br>
 - 查詢 Address List<br>
   - 輸入此命令 `Get-addresslist` 會查詢通訊清單，結果如下圖。<br>
-    ![Github](/images/get-address-list.png)<br>
+    ![Github](/https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/get-address-list.png)<br>
 - 更改 Address List 名稱<br>
   - 如果要將原先的技術單位階層，更改為客服單位，請輸入以下指令，將`技術單位`改成`客服單位`，結果如下圖。<br>
     ````Powershell
     Set-AddressList -Identity "技術單位" -Name 客服單位 -DisplayName 客服單位
     ````
-    ![Github](images/set-address-list-name.png)<br>
+    ![Github](https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/set-address-list-name.png)<br>
 - 更改 Address List 過濾屬性<br>
   - 剛剛只有將名稱更改，但這樣沒辦法篩選到所對應的客服單位的人員，假設客服單位的部門篩選屬性為 `Seg1-help`，請輸入以下指令，結果如下圖。<br>
     ````Powershell
     Set-AddressList -Identity "客服單位" -RecipientFilter {( Department -eq 'Seg1-help') -and (RecipientType -eq 'UserMailbox')}
     ````
-    ![Github](/images/set-address-list-filter.png)<br>
+    ![Github](/https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/set-address-list-filter.png)<br>
 - 刪除 Address List<br>
   - 有時可能一時做太快，刪除重新建立可以是更快速的做法，假設要刪除客服單位，請輸入以下指令，結果如下圖。<br>
     ````Powershell
     Remove-AddressList -Identity "客服單位"
     ````
-    ![Github](images/remove-address-list.png)<br>
+    ![Github](https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/remove-address-list.png)<br>
 
 ## 參考來源
 
