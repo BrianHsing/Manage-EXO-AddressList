@@ -30,6 +30,11 @@
 情境 1：信箱使用者未存在：先建立通訊清單，在建立信箱使用者。<br>
 情境 2：信箱使用者已存在：建立通訊清單，更新使用者資料。例：通訊清單已部門篩選人員，使用者部門已有相對應值，必須先將其更改，再改回原本相對應值，聯絡人才會在相對應分類出現。如果環境中有使用身分混合識別，需要透過執行 AAD Sync 手動同步指令，更改過的通訊清單才會正常篩選。<br>
 
+所以在開始執行之前，要先做好幾項前置作業：<br>
+1. 確認身分識別類型是純雲端環境還是混合身分識別，純雲端可以在 M365 Admin Center 直接更改，混合身分識別需要再內部部署的網域控制上進行變更<br>
+2. 確認企業完整通訊清單階層設計。<br>
+3. 確認要針對哪個屬性進行篩選，例如部門。<br>
+
 - 新增 Address List<br>
   
   假如我們今天要建立的通訊清單階層是：<br>
@@ -40,11 +45,11 @@
         |-技術單位
      |-部門 2
   ````
-    - 首先我們先建立第一個階層 Contoso，執行以下指令<br>
+    - 首先我們先建立第一個階層 Contoso，執行以下指令，篩選只要是使用者信箱的屬性，就會被分類近來<br>
         ````Powershell
         New-AddressList -Name Contoso -RecipientFilter {(RecipientType -eq 'UserMailbox')}
         ````
-    - 再來我們要建立子階層，在 Contoso 下方新增部門1與部門2，執行以下指令<br>
+    - 再來我們要建立子階層，在 Contoso 下方新增部門 1 與部門 2，非分別對於部門 1 與部門 2的屬性進行篩選，執行以下指令<br>
         ````Powershell
         New-AddressList -Name "部門1"  -Container \Contoso -RecipientFilter {( Department -eq 'Seg1') -and (RecipientType -eq 'UserMailbox')}
         New-AddressList -Name "部門2" -Container \Contoso -RecipientFilter {( Department -eq 'Seg2') -and (RecipientType -eq 'UserMailbox')}
@@ -59,6 +64,9 @@
         ![Github](/images/new-addresslist.png)<br>
       - Outlook Cient User View<br>
         ![Github](images/addresslist-outlook-view.png)<br>
+    - 測試更改使用者部門，觀察篩選結果<br>
+      - 假設會篩選屬於部門 1 的業務人員，將 Alex、Alan 的部門輸入 Seg1-sales。<br>
+        ![Github](/images/address-list-show.png)<br>
 - 查詢 Address List<br>
 - 更改 Address List名稱<br>
 - 更改 Address List過濾屬性<br>
