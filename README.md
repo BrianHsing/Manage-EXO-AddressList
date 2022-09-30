@@ -32,13 +32,13 @@
 
 - 新增 Address List
   假如我們今天要建立的通訊清單階層是：<br>
-  ```
+  ````
     Contoso
      |-部門1
         |-業務單位
         |-技術單位
      |-部門2
-  ```
+  ````
 
 - 查詢 Address List
 - 更改 Address List名稱
