@@ -33,10 +33,10 @@
 - 新增 Address List
   假如我們今天要建立的通訊清單階層是：<br>
     Contoso<br>
-    -|_部門1<br>
-    --|_業務單位<br>
-    --|_技術單位<br>
-    -|_部門2<br>
+    |-部門1<br>
+    | |-業務單位<br>
+    | |-技術單位<br>
+    |-部門2<br>
 - 查詢 Address List
 - 更改 Address List名稱
 - 更改 Address List過濾屬性
