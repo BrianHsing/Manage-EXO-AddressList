@@ -92,4 +92,4 @@
 ## 參考來源
 
 - [Basic Authentication and Exchange Online – September 2021 Update](https://techcommunity.microsoft.com/t5/exchange-team-blog/basic-authentication-and-exchange-online-september-2021-update/ba-p/2772210)<br>
-- 
+- [Manage address lists in Exchange Online](https://learn.microsoft.com/en-us/exchange/address-books/address-lists/manage-address-lists)<br>
