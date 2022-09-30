@@ -31,7 +31,7 @@
 情境 2：信箱使用者已存在：建立通訊清單，更新使用者資料。例：通訊清單已部門篩選人員，使用者部門已有相對應值，必須先將其更改，再改回原本相對應值，聯絡人才會在相對應分類出現。如果環境中有使用身分混合識別，需要透過執行 AAD Sync 手動同步指令，更改過的通訊清單才會正常篩選。<br>
 
 所以在開始執行之前，要先做好幾項前置作業：<br>
-1. 確認身分識別類型是純雲端環境還是混合身分識別，純雲端可以在 M365 Admin Center 直接更改，混合身分識別需要再內部部署的網域控制上進行變更<br>
+1. 確認身分識別類型是純雲端環境還是混合身分識別，純雲端可以在 M365 Admin Center 直接更改，混合身分識別需要再內部部署的網域控制上進行變更。<br>
 2. 確認企業完整通訊清單階層設計。<br>
 3. 確認要針對哪個屬性進行篩選，例如部門。<br>
 
@@ -68,9 +68,26 @@
       - 假設會篩選屬於部門 1 的業務人員，將 Alex、Alan 的部門輸入 Seg1-sales。<br>
         ![Github](/images/address-list-show.png)<br>
 - 查詢 Address List<br>
-- 更改 Address List名稱<br>
-- 更改 Address List過濾屬性<br>
+  - 輸入此命令 `Get-addresslist` 會查詢通訊清單，結果如下圖。<br>
+    ![Github](/images/get-address-list.png)<br>
+- 更改 Address List 名稱<br>
+  - 如果要將原先的技術單位階層，更改為客服單位，請輸入以下指令，將`技術單位`改成`客服單位`，結果如下圖。<br>
+    ````Powershell
+    Set-AddressList -Identity "技術單位" -Name 客服單位 -DisplayName 客服單位
+    ````
+    ![Github](images/set-address-list-name.png)<br>
+- 更改 Address List 過濾屬性<br>
+  - 剛剛只有將名稱更改，但這樣沒辦法篩選到所對應的客服單位的人員，假設客服單位的部門篩選屬性為 `Seg1-help`，請輸入以下指令，結果如下圖。<br>
+    ````Powershell
+    Set-AddressList -Identity "客服單位" -RecipientFilter {( Department -eq 'Seg1-help') -and (RecipientType -eq 'UserMailbox')}
+    ````
+    ![Github](/images/set-address-list-filter.png)<br>
 - 刪除 Address List<br>
+  - 有時可能一時做太快，刪除重新建立可以是更快速的做法，假設要刪除客服單位，請輸入以下指令，結果如下圖。<br>
+    ````Powershell
+    Remove-AddressList -Identity "客服單位"
+    ````
+    ![Github](images/remove-address-list.png)<br>
 
 ## 參考來源
 
