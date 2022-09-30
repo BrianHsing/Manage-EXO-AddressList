@@ -40,12 +40,25 @@
         |-技術單位
      |-部門 2
   ````
-    - 首先我們先建立第一個階層部門 1 和部門 2，執行以下指令<br>
+    - 首先我們先建立第一個階層 Contoso，執行以下指令<br>
         ````Powershell
-        New-AddressList -Name Contoso -RecipientFilter {( Department -eq '部門1') -and (RecipientType -eq 'UserMailbox')}
-        New-AddressList -Name Contoso -RecipientFilter {( Department -eq '部門2') -and (RecipientType -eq 'UserMailbox')}
+        New-AddressList -Name Contoso -RecipientFilter {(RecipientType -eq 'UserMailbox')}
         ````
-    - 
+    - 再來我們要建立子階層，在 Contoso 下方新增部門1與部門2，執行以下指令<br>
+        ````Powershell
+        New-AddressList -Name "部門1"  -Container \Contoso -RecipientFilter {( Department -eq 'Seg1') -and (RecipientType -eq 'UserMailbox')}
+        New-AddressList -Name "部門2" -Container \Contoso -RecipientFilter {( Department -eq 'Seg2') -and (RecipientType -eq 'UserMailbox')}
+        ````
+    - 在部門 1 在建立業務單位與技術單位巢狀階層，執行以下指令<br>
+        ````Powershell
+        New-AddressList -Name "業務單位" -Container \Contoso\部門1 -RecipientFilter {( Department -eq 'Seg1-sales') -and (RecipientType -eq 'UserMailbox')}
+        New-AddressList -Name "技術單位" -Container \Contoso\部門1 -RecipientFilter {( Department -eq 'Seg1-tech') -and (RecipientType -eq 'UserMailbox')}
+        ````
+    - 完成後的樹狀結構結果呈現<br>
+      - Powershell 結果視窗
+        ![Github](/images/new-addresslist.png)<br>
+      - Outlook Cient User View<br>
+        ![Github](images/addresslist-outlook-view.png)<br>
 - 查詢 Address List<br>
 - 更改 Address List名稱<br>
 - 更改 Address List過濾屬性<br>
