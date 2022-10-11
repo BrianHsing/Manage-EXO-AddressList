@@ -12,8 +12,8 @@
   - 傳統介面<br>
     ![Github](https://github.com/BrianHsing/Manage-EXO-AddressList/blob/main/images/permissioin-old.png)<br>
 - 前置作業檢查：<br>
-  - 確認您使用 Windows Client： Windows 7 Service Pack 1 (SP1)、Windows 8.1、Windows 10/11<br>
-  - 確認您使用 Windows Server： Windows Server 2008 R2 SP1、Windows Server 2012/R2 或更新版本<br>
+  - 確認您使用 Windows Client： Windows 7 Service Pack 1 (SP1)、Windows 8.1、Windows 10/11。<br>
+  - 確認您使用 Windows Server： Windows Server 2008 R2 SP1、Windows Server 2012/R2 或更新版本。<br>
   - 確認您的環境已安裝 Microsoft .NET Framework 4.7.1<br>
 - 使用`系統管理員身分`開啟您本機電腦的 Windows Powershell 或是 Windows Powershell ISE，依據您熟悉的工具使用即可，本篇會使用 Windows Powershell ISE，原因是在定義通訊清單的時候，有指令碼窗格會減少蠻多重複剪貼的工作。<br>
 - 開啟之後，執行 `Set-ExecutionPolicy RemoteSigned` 將 PowerShell 執行原則設定為 RemoteSigned，否則您會看到錯誤。<br>
@@ -45,7 +45,7 @@
         |-技術單位
      |-部門 2
   ````
-    - 首先我們先建立第一個階層 Contoso，執行以下指令，篩選只要是使用者信箱的屬性，就會被分類近來<br>
+    - 首先我們先建立第一個階層 Contoso，執行以下指令，篩選只要是使用者信箱的屬性，就會被分類進來<br>
         ````Powershell
         New-AddressList -Name Contoso -RecipientFilter {(RecipientType -eq 'UserMailbox')}
         ````
